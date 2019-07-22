@@ -1,6 +1,6 @@
 <template>
-  <div class="timer">
-    <h2 class="clock display-1 text-monospace">
+  <div class="timer py-3">
+    <h2 class="clock display-1 text-monospace mt-2">
       <span class="bg-dark text-light rounded px-4">{{ displayTime }}</span></h2>
     <ClockButtons  />
   </div>
