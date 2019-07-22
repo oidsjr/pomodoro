@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="/">{{ siteTitle }}</a>
+      <router-link class="navbar-brand" to="/">{{ siteTitle }}</router-link>
       <button class="navbar-toggler d-lg-none" type="button"
         data-toggle="collapse" :data-target="'#' + menuName"
         :aria-controls="menuName"

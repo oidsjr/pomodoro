@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="container text-center">
-      <Clock :startTime="1500" />
+      <router-view></router-view>
     </div>
     <Foot :siteTitle="siteTitle" />
   </div>
@@ -15,14 +15,12 @@
 
 <script>
 import Navbar from './components/Navbar/Navbar.vue';
-import Clock from './components/Clock/Clock.vue';
 import Foot from './components/Foot/Foot.vue';
 
 export default {
   name: 'app',
   components: {
     Navbar,
-    Clock,
     Foot,
   },
   data() {
