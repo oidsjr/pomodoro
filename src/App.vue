@@ -1,23 +1,31 @@
 <template>
   <div id="app">
+    <Navbar :siteTitle="siteTitle" menuName="menu-principal" />
     <div class="jumbotron jumbotron-fluid text-center">
       <div class="container">
-        <h1 class="display-4">Pomodoro Timer</h1>
+        <h1 class="display-4">{{ siteTitle }}</h1>
       </div>
     </div>
     <div class="container text-center">
-      <Clock v-bind:startTime="1500" />
+      <Clock :startTime="1500" />
     </div>
   </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar/Navbar.vue';
 import Clock from './components/Clock/Clock.vue';
 
 export default {
   name: 'app',
   components: {
+    Navbar,
     Clock,
+  },
+  data() {
+    return {
+      siteTitle: 'Pomodoro Timer',
+    };
   },
 };
 </script>
