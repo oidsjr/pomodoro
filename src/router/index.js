@@ -8,8 +8,10 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Ínicio',
+      name: 'Pomodoro',
       component: Clock,
+      props: { startTime: 1500 },
     },
   ],
+  linkExactActiveClass: 'active',
 });
