@@ -2,13 +2,13 @@
   <div>
     <button
       class="btn btn-primary m-2"
-      v-on:click="startClock">Começar</button>
+      @click="startClock">Começar</button>
     <button
       class="btn btn-secondary m-2"
-      v-on:click="stopClock">Parar</button>
+      @click="stopClock">Parar</button>
     <button
       class="btn btn-light m-2"
-      v-on:click="resetClock">Reiniciar</button>
+      @click="resetClock" @doResetClock="resetClock">Reiniciar</button>
   </div>
 </template>
 
@@ -19,6 +19,9 @@ export default {
     return {
       started: false,
     };
+  },
+  mounted() {
+    this.$parent.$on('updateClock', () => this.resetClock());
   },
   methods: {
     resetClock() {
