@@ -9,7 +9,7 @@
         v-on:click.prevent="toggleCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <NavbarCollapse :menuName="menuName" :links="links" />
+      <NavbarCollapse :menuName="menuName" />
     </div>
   </nav>
 </template>
@@ -34,12 +34,6 @@ export default {
   data() {
     return {
       collapseShow: false,
-      links: [
-        {
-          name: 'Home',
-          route: '/',
-        },
-      ],
     };
   },
 };
