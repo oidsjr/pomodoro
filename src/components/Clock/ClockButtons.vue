@@ -2,13 +2,17 @@
   <div>
     <button
       class="btn btn-primary m-2"
+      v-shortkey.once="['space']"
+      @shortkey="startStopClock"
       @click="startClock">Começar</button>
     <button
       class="btn btn-secondary m-2"
       @click="stopClock">Parar</button>
     <button
       class="btn btn-light m-2"
-      @click="resetClock" @doResetClock="resetClock">Reiniciar</button>
+      v-shortkey.once="['alt', 'r']"
+      @shortkey="resetClock"
+      @click="resetClock">Reiniciar</button>
   </div>
 </template>
 
@@ -51,6 +55,10 @@ export default {
     },
     stopClock() {
       this.started = false;
+    },
+    startStopClock() {
+      if (this.started) this.stopClock();
+      else this.startClock();
     },
   },
 };

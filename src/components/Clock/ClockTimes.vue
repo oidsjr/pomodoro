@@ -4,6 +4,8 @@
       v-for="(item, index) in times"
       :key="index"
       @click="changeTime(item.time)"
+      v-shortkey.once="['alt', index+1]"
+      @shortkey="changeTime(item.time)"
       type="button"
       class="btn btn-secondary">{{ item.name }}</button>
   </div>
