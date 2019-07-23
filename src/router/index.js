@@ -10,7 +10,6 @@ export default new VueRouter({
       path: '/',
       name: 'Pomodoro',
       component: Clock,
-      props: { startTime: 1500 },
     },
   ],
   linkExactActiveClass: 'active',
