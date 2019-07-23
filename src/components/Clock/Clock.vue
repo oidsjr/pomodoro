@@ -1,5 +1,6 @@
 <template>
   <div class="timer py-3">
+    <ClockTimes />
     <h2 class="clock display-1 text-monospace mt-2">
       <span class="bg-dark text-light rounded px-4">{{ displayTime }}</span></h2>
     <ClockButtons />
@@ -8,6 +9,7 @@
 
 <script>
 import ClockButtons from './ClockButtons.vue';
+import ClockTimes from './ClockTimes.vue';
 
 export default {
   name: 'Clock',
@@ -19,6 +21,7 @@ export default {
   },
   components: {
     ClockButtons,
+    ClockTimes,
   },
   data() {
     return {
