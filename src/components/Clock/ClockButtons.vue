@@ -1,18 +1,17 @@
 <template>
   <div>
     <button
-      class="btn btn-primary m-2"
-      v-shortkey.once="['space']"
-      @shortkey="startStopClock"
-      @click="startClock">Começar</button>
-    <button
-      class="btn btn-secondary m-2"
-      @click="stopClock">Parar</button>
-    <button
-      class="btn btn-light m-2"
-      v-shortkey.once="['alt', 'r']"
-      @shortkey="resetClock"
-      @click="resetClock">Reiniciar</button>
+      v-for="(button, index) in buttons"
+      class="btn m-2"
+      :class="button.class"
+      :key="index"
+      @click="button.action">
+        <span
+          v-if="button.shortkey"
+          v-shortkey.once="button.shortkey.keys"
+          @shortkey="button.shortkey.action"></span>
+        {{ button.name }}
+      </button>
   </div>
 </template>
 
@@ -22,10 +21,41 @@ export default {
   data() {
     return {
       started: false,
+      buttons: [
+        {
+          name: 'Começar/Parar',
+          action: this.startStopClock,
+          class: 'btn-primary',
+          shortkey: {
+            keys: ['space'],
+            action: this.startStopClock,
+          },
+        }, {
+          name: 'Reiniciar',
+          action: this.resetClock,
+          class: 'btn-light',
+          shortkey: {
+            keys: ['alt', 'r'],
+            action: this.resetClock,
+          },
+        },
+      ],
     };
   },
   mounted() {
     this.$parent.$on('updateClock', () => this.resetClock());
+
+    const shortkeys = this.buttons
+      .reduce((keys, button) => {
+        if (button.shortkey) {
+          keys.push({
+            name: button.name,
+            keys: button.shortkey.keys,
+          });
+        }
+        return keys;
+      }, []);
+    this.$emit('getShortKeys', shortkeys);
   },
   methods: {
     resetClock() {

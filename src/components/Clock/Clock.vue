@@ -1,15 +1,21 @@
 <template>
   <div class="timer py-3">
-    <ClockTimes />
+    <ClockTimes v-on:getShortKeys="updateShortKeys($event)" />
     <h2 class="clock display-1 text-monospace mt-2">
       <span class="bg-dark text-light rounded px-4">{{ displayTime }}</span></h2>
-    <ClockButtons />
+    <ClockButtons v-on:getShortKeys="updateShortKeys($event)" />
+    <div class="row justify-content-center pt-3">
+      <div class="col-md-4">
+        <ClockKeys v-if="shortKeys.length" :keys="shortKeys" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ClockButtons from './ClockButtons.vue';
 import ClockTimes from './ClockTimes.vue';
+import ClockKeys from './ClockKeys.vue';
 
 export default {
   name: 'Clock',
@@ -22,16 +28,31 @@ export default {
   components: {
     ClockButtons,
     ClockTimes,
+    ClockKeys,
   },
   data() {
     return {
       // Define como tempo maximo 60 minutos
       currentTime: (this.startTime < 3600) ? this.startTime : 3600,
+      shortKeys: [],
     };
   },
   watch: {
     startTime() {
       this.$emit('updateClock');
+    },
+  },
+  methods: {
+    updateShortKeys(newKeys) {
+      newKeys.forEach((newKey) => {
+        const currentIndex = this.shortKeys.findIndex(key => key.name === newKey.name);
+
+        if (currentIndex > -1) {
+          this.shortKeys[currentIndex] = newKey;
+        } else {
+          this.shortKeys.push(newKey);
+        }
+      });
     },
   },
   computed: {

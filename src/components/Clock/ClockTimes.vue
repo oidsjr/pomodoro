@@ -4,10 +4,18 @@
       v-for="(item, index) in times"
       :key="index"
       @click="changeTime(item.time)"
-      v-shortkey.once="['alt', index+1]"
-      @shortkey="changeTime(item.time)"
       type="button"
-      class="btn btn-secondary">{{ item.name }}</button>
+      class="btn btn-secondary">
+      <span
+        v-if="item.shortkey"
+        v-shortkey.once="item.shortkey.keys"
+        @shortkey="item.shortkey.action"></span>
+      <span
+        v-else
+        v-shortkey.once="['alt', index+1]"
+        @shortkey="changeTime(item.time)"></span>
+      {{ item.name }}
+    </button>
   </div>
 </template>
 
@@ -16,18 +24,18 @@ export default {
   name: 'ClockTimes',
   props: {
     times: {
-      type: Object,
+      type: Array,
       default: () => [
         {
           name: 'Pomodoro',
           time: 1500,
         },
         {
-          name: 'Short Break',
+          name: 'Pausa curta',
           time: 300,
         },
         {
-          name: 'Long Break',
+          name: 'Pausa longa',
           time: 900,
         },
       ],
@@ -37,6 +45,17 @@ export default {
     changeTime(newTime) {
       this.$parent.startTime = newTime;
     },
+  },
+  mounted() {
+    const shortkeys = this.times
+      .reduce((keys, button, index) => {
+        keys.push({
+          name: button.name,
+          keys: (button.shortkey) ? button.shortkey.keys : ['alt', index + 1],
+        });
+        return keys;
+      }, []);
+    this.$emit('getShortKeys', shortkeys);
   },
 };
 </script>
