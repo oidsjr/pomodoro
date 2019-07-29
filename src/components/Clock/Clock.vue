@@ -41,6 +41,13 @@ export default {
     startTime() {
       this.$emit('updateClock');
     },
+    currentTime() {
+      if (this.currentTime !== this.startTime) {
+        this.$parent.titleTag = `(${this.displayTime}) ${this.$parent.siteTitle}`;
+      } else {
+        this.$parent.titleTag = this.$parent.siteTitle;
+      }
+    },
   },
   methods: {
     updateShortKeys(newKeys) {
