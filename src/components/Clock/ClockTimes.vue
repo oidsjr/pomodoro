@@ -9,7 +9,7 @@
       <span
         v-if="item.shortkey"
         v-shortkey.once="item.shortkey.keys"
-        @shortkey="item.shortkey.action"></span>
+        @shortkey="changeTime(item.time)"></span>
       <span
         v-else
         v-shortkey.once="['alt', index+1]"
@@ -29,14 +29,23 @@ export default {
         {
           name: 'Pomodoro',
           time: 1500,
+          shortkey: {
+            keys: ['alt', 'p'],
+          },
         },
         {
           name: 'Pausa curta',
           time: 300,
+          shortkey: {
+            keys: ['alt', 'c'],
+          },
         },
         {
           name: 'Pausa longa',
           time: 900,
+          shortkey: {
+            keys: ['alt', 'l'],
+          },
         },
       ],
     },
